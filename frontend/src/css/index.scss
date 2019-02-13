@@ -1,0 +1,182 @@
+body {
+  margin: 0;
+  padding: 0;
+  background-color: black;
+  box-sizing: border-box;
+  font-size: 18px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4 {
+  color: silver;
+  padding: 0;
+  margin: 0;
+  font-weight: 400;
+}
+
+h2 {
+  font-size: 1.35rem;
+}
+
+h3 {
+  font-size: .9rem;
+}
+
+p, span {
+  display: inline-block;
+  color: white;
+  padding: 0;
+  margin: 0;
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+/* rect {
+  transition: all .2s;
+} */
+
+.panel {
+  height: 100%;
+  padding: 7px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.panel-header {
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.panel-title {
+  display: flex;
+  position: relative;
+  width: 100%;
+  align-items: baseline;
+  color: silver;
+  font-size: 1.2rem;
+  justify-content: space-between;
+}
+
+.view-button {
+  position: absolute;
+  right: -4px;
+  top: -18px;
+  font-size: 2.5rem;
+}
+
+.panel-rt-container {
+  display: flex;
+  align-items: baseline;
+}
+
+.panel-rt {
+  color: white;
+  font-size: 1.75rem;
+  font-weight: 500;
+}
+
+.panel-rt-label {
+  color: silver;
+  font-size: 1.5rem;
+}
+
+.mapboxgl-map {
+  margin-top: 10px;
+}
+
+.gps-container {
+  grid-column: 1;
+  grid-row: 1;
+  .panel {
+    overflow: scroll;
+  }
+}
+
+.gps-info-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  margin-top: 8px;
+}
+
+.gps-info-row {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  margin-bottom: .5rem;
+}
+
+.gps-info-label {
+  color: silver;
+  font-size: .75rem;
+}
+
+.gps-info-data {
+  color: white;
+  font-size: 1.2rem;
+}
+
+.system-container {
+  grid-row: 1;
+  grid-column: 2;
+}
+
+.system-overview {
+  display: flex;
+  flex-direction: column;
+ /* justify-content:  */
+  margin-top: 1rem;
+}
+
+.system-overview > div {
+  margin-bottom: 2rem;
+}
+
+.system-reporting-row {
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+  justify-content: space-between;
+  margin: 1px 0;
+}
+
+.system-reporting-row div {
+  display: flex;
+  align-items: center;
+  padding: 2px .5rem;
+  color: white;
+}
+
+.system-reporting-state {
+  font-size: 10px;
+}
+
+.system-reporting-state[data-state="20"] {
+  color: #58e65d;
+}
+
+.system-reporting-state[data-state="0"], 
+.system-reporting-state[data-state="100"], 
+.system-reporting-state[data-state="200"], 
+.system-reporting-state[data-state="1000"] {
+  color: #ef2424;
+}
+
+.system-reporting-state[data-state="10"],
+ .system-reporting-state[data-state="40"] {
+  color: #ffeb3b;
+}

@@ -1,0 +1,5 @@
+export const WINDOW_RESIZE = "WINDOW_RESIZE"
+export const PUSH_DATA = "PUSH_DATA"
+export const ADD_INITIAL_DATA = "ADD_INITIAL_DATA"
+export const PUSH_AND_SHIFT_DATA = "PUSH_AND_SHIFT_DATA"
+export const UPDATE_KEY = "UPDATE_KEY"
