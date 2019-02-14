@@ -1,12 +1,12 @@
 const express = require('express')
 const app = express()
 const passport = require('passport')
-const LocalStrategy = require('passport-local').Strategy;
+const BasicStrategy = require('passport-http').BasicStrategy;
 require('./websocket')
 const routes = require('./routes')
 const config = require('./config')
 
-passport.use(new LocalStrategy(
+passport.use(new BasicStrategy (
   function(username, password, done) {
     //JUST TESTING...
     if(username === 'greg' && password == 'greg') {
