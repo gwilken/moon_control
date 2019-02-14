@@ -26,4 +26,11 @@ router.post('/key', jsonParser, (req, res) => {
     res.send('OK')
    // redis.addHashUpdateSet()
 })
+
+router.post('/', jsonParser, (req, res) => {
+    console.log(req.body)
+    res.send('OK')
+   // redis.addHashUpdateSet()
+})
+
 module.exports = router
