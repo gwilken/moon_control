@@ -30,6 +30,7 @@ router.post('/key', jsonParser, (req, res) => {
 
 router.post('/update',
     passport.authenticate('basic', { session: false }),
+    jsonParser,
     (req, res) => {
         // If this function gets called, authentication was successful.
         // `req.user` contains the authenticated user.
