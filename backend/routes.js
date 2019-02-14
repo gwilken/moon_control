@@ -27,7 +27,7 @@ router.post('/key', jsonParser, (req, res) => {
    // redis.addHashUpdateSet()
 })
 
-router.post('/', jsonParser, (req, res) => {
+router.post('/', (req, res) => {
     console.log(req.body)
     res.send('OK')
    // redis.addHashUpdateSet()
