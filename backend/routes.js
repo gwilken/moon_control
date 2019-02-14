@@ -34,8 +34,10 @@ router.post('/update',
         // If this function gets called, authentication was successful.
         // `req.user` contains the authenticated user.
         //res.redirect('/users/' + req.user.username);
-        console.log('AUTHENTICATED>>>>')
-        res.send('Nice.')
+        console.log('>>>>>>AUTHENTICATED>>>>')
+        console.log(req.body)
+
+        res.send('Thanks for the datas.')
     })
 
 router.post('/', jsonParser, (req, res) => {
