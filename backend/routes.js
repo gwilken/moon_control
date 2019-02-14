@@ -1,4 +1,5 @@
 const express = require('express')
+const passport = require('passport')
 const router = new express.Router();
 const redis = require('./redisUtils.js')
 const bodyParser = require('body-parser')
@@ -26,6 +27,16 @@ router.post('/key', jsonParser, (req, res) => {
     res.send('OK')
    // redis.addHashUpdateSet()
 })
+
+router.post('/update',
+    passport.authenticate('local'),
+    (req, res) => {
+        // If this function gets called, authentication was successful.
+        // `req.user` contains the authenticated user.
+        //res.redirect('/users/' + req.user.username);
+        console.log('AUTHENTICATED>>>>')
+        res.send('Nice.')
+    })
 
 router.post('/', jsonParser, (req, res) => {
     console.log(req.body)
