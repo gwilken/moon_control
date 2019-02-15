@@ -42,6 +42,12 @@ router.post('/update',
 
         Object.keys(data).map(key => {
             console.log('key:', key)
+            
+            if(data[key].set) {
+                let arr = Object.entries(data[key]).flat()
+                console.log(data[key].hashkey, arr)
+            }
+
             console.log('sortedset:', data[key].set)
             console.log('hashkey:', data[key].hashkey)
         })
