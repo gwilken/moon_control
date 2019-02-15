@@ -38,7 +38,7 @@ router.post('/update',
         console.log('>>>>>>AUTHENTICATED>>>>')
         //console.log(req.body)
 
-        for(const key in Object.keys(req.body) ) {
+        Object.keys(req.body).map(key => {
             console.log('key:', key)
             console.log('sortedset:', key.set)
             console.log('hashkey:', key.hashkey)
