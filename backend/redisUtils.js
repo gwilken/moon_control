@@ -1,11 +1,11 @@
-const redisClient = require('./redis.js')
+const redis = require('./redis.js')
 const { promisify } = require('util')
-const asyncIncr = promisify(redisClient.incr).bind(redisClient)
-const zrange = promisify(redisClient.zrange).bind(redisClient)
-const zrevrange = promisify(redisClient.zrevrange).bind(redisClient)
-const asyncHget = promisify(redisClient.hget).bind(redisClient)
-const asyncHgetall = promisify(redisClient.hgetall).bind(redisClient)
-// const redisGet = promisify(redisClient.get).bind(redis)
+const asyncIncr = promisify(redis.incr).bind(redis)
+const zrange = promisify(redis.zrange).bind(redis)
+const zrevrange = promisify(redis.zrevrange).bind(redis)
+const asyncHget = promisify(redis.hget).bind(redis)
+const asyncHgetall = promisify(redis.hgetall).bind(redis)
+// const redisGet = promisify(redis.get).bind(redis)
 //let test = await redisLrange(req.params.key, req.params.start, req.params.end)
 
 const getHash = async (hashKey) => {
@@ -35,9 +35,9 @@ const recordEvent = async (event) => {
 
     event.id = `${event.type}-${await asyncIncr('counter')}`
     event.timestamp = timestamp
-    redisClient.hmset(event.id, event)
+    redis.hmset(event.id, event)
 
-    redisClient.zadd(event.type, timestamp, event.id)
+    redis.zadd(event.type, timestamp, event.id)
 }
 
 const getZrevrange = (key, window) => {
@@ -97,4 +97,4 @@ const getEventFieldAndTimestamp = (type, field, min = 0, max = 100) => {
     })
 }
 
-module.exports = { addHashUpdateSet, redisClient, getZrevrange, recordEvent, getHashsFromSet, getEventField, getEventFieldAndTimestamp }
+module.exports = { addHashUpdateSet, redis, getZrevrange, recordEvent, getHashsFromSet, getEventField, getEventFieldAndTimestamp }
