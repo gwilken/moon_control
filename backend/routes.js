@@ -38,13 +38,19 @@ router.post('/update',
         console.log('>>>>>>AUTHENTICATED>>>>')
         console.log(req.body)
 
-        res.send('Thanks for the datas.')
+        for(const key in Object.keys(req.body) ) {
+            console.log('sortedset:', key.set)
+            console.log('hashkey:', key.hashkey)
+        }
+
+
+        res.end()
     })
 
-router.post('/', jsonParser, (req, res) => {
-    console.log(req.body)
-    res.send('OK')
-   // redis.addHashUpdateSet()
-})
+// router.post('/', jsonParser, (req, res) => {
+//     console.log(req.body)
+//     res.send('OK')
+//    // redis.addHashUpdateSet()
+// })
 
 module.exports = router

@@ -25,7 +25,7 @@ passport.deserializeUser(function(user, done) {
   done(null, user);
 });
 
-//app.use(express.static('../frontend/build'))
+app.use(express.static('../frontend/build'))
 app.use(passport.initialize());
 app.use('/', routes)
 
