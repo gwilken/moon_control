@@ -41,21 +41,16 @@ router.post('/update',
         const data = req.body;
 
         Object.keys(data).map(key => {
-            console.log('key:', key)
-            
             if(data[key].set && data[key].hashkey) {
                 let arr = Object.entries(data[key])
                 redisUtils.redis.hmset(data[key].hashkey, arr.flat())
                 console.log('hash added:', data[key].hashkey)
                 
-                redisUtils.redis.zadd(data[key].set, data[key].hashkey, parseFloat(data[key].timestamp))
+                redisUtils.redis.zadd(data[key].set, [data[key].hashkey, parseFloat(data[key].timestamp)])
                 console.log('set added:', data[key].set)
 
                 //r.zadd(set + '-set', hashkey, timestamp )
-            }
-
-            console.log('sortedset:', data[key].set)
-            
+            } 
         })
 
 
