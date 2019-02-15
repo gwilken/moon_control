@@ -46,7 +46,7 @@ router.post('/update',
                 redisUtils.redis.hmset(data[key].hashkey, arr.flat())
                 console.log('hash added:', data[key].hashkey)
                 
-                redisUtils.redis.zadd(data[key].set, [data[key].hashkey, parseFloat(data[key].timestamp)])
+                redisUtils.redis.zadd(data[key].set, parseFloat(data[key].timestamp), data[key].hashkey)
                 console.log('set added:', data[key].set)
 
                 //r.zadd(set + '-set', hashkey, timestamp )
