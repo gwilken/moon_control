@@ -38,10 +38,12 @@ router.post('/update',
         console.log('>>>>>>AUTHENTICATED>>>>')
         //console.log(req.body)
 
-        Object.keys(req.body).map(key => {
+        const data = req.body;
+
+        Object.keys(data).map(key => {
             console.log('key:', key)
-            console.log('sortedset:', key.set)
-            console.log('hashkey:', key.hashkey)
+            console.log('sortedset:', data[key].set)
+            console.log('hashkey:', data[key].hashkey)
         })
 
 
