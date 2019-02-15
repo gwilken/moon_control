@@ -36,9 +36,10 @@ router.post('/update',
         // `req.user` contains the authenticated user.
         //res.redirect('/users/' + req.user.username);
         console.log('>>>>>>AUTHENTICATED>>>>')
-        console.log(req.body)
+        //console.log(req.body)
 
         for(const key in Object.keys(req.body) ) {
+            console.log('key:', key)
             console.log('sortedset:', key.set)
             console.log('hashkey:', key.hashkey)
         }
