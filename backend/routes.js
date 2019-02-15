@@ -45,7 +45,7 @@ router.post('/update',
             
             if(data[key].set) {
                 let arr = Object.entries(data[key])
-                redisUtil.redis.hmset(data[key].hashkey, arr.flat())
+                redisUtils.redis.hmset(data[key].hashkey, arr.flat())
             }
 
             console.log('sortedset:', data[key].set)
