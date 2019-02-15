@@ -42,7 +42,7 @@ router.post('/update',
             console.log('key:', key)
             console.log('sortedset:', key.set)
             console.log('hashkey:', key.hashkey)
-        }
+        })
 
 
         res.end()
