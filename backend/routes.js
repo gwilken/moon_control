@@ -45,7 +45,7 @@ router.post('/update',
             
             if(data[key].set) {
                 let arr = Object.entries(data[key])
-                console.log(data[key].hashkey, arr.flat())
+                console.log(data[key].hashkey, arr)
             }
 
             console.log('sortedset:', data[key].set)
