@@ -149,7 +149,9 @@ wss.on('connection', async (wsClient, req) => {
   })
   
   
-  wsClient.on('close', )
+  wsClient.on('close', () => {
+    log('[ WEBSOCKET ] - Client connection closed.')
+  })
 
 
 
