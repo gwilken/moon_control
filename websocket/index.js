@@ -22,7 +22,7 @@ const parseMessage = (str, wsClient, redisClient) => {
 
       switch (json.message.type) {
         case 'subscribeToKey':
-          log('subtokey')
+         // log('subtokey')
 
             let redisSubKey = new RedisSub()
 
@@ -52,7 +52,7 @@ const parseMessage = (str, wsClient, redisClient) => {
         break;
         
         case 'subscribeToSeries':
-          log('subscribeToSeries')
+         // log('subscribeToSeries')
         
             try {
               let redisSubTimeseries = new RedisSub()
@@ -63,10 +63,10 @@ const parseMessage = (str, wsClient, redisClient) => {
               
                 redisClient.zrange(key, -1, -1, 'WITHSCORES', (err, val) => {
                   let [hashkey, keyAsTimestamp] = val
-                  log('timestamp:', keyAsTimestamp, 'hashkey:', hashkey) 
+                 // log('timestamp:', keyAsTimestamp, 'hashkey:', hashkey) 
                 
                   redisClient.hgetall(hashkey, (err, hashVal) => {
-                    log('hash:', hashVal)
+                   // log('hash:', hashVal)
 
                     let data = {
                       message: {
@@ -85,7 +85,7 @@ const parseMessage = (str, wsClient, redisClient) => {
                 })
               })
             } catch (err) {
-              log('[ WEBSOCKET ] - Error subscribeToSeries:', err)
+             // log('[ WEBSOCKET ] - Error subscribeToSeries:', err)
             }   
         break;
 
@@ -103,7 +103,7 @@ const parseMessage = (str, wsClient, redisClient) => {
         }
     }
   } catch (err) {
-    log('err parsing json:', err)
+    log('[ WEBSOCKET ] - ERROR parsing json:', err)
   }
 }
 
