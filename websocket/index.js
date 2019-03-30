@@ -63,10 +63,10 @@ const parseMessage = (str, wsClient, redisClient) => {
               
                 redisClient.zrange(key, -1, -1, 'WITHSCORES', (err, val) => {
                   let [hashkey, keyAsTimestamp] = val
-                 // log('timestamp:', keyAsTimestamp, 'hashkey:', hashkey) 
+                  log('timestamp:', keyAsTimestamp, 'hashkey:', hashkey) 
                 
                   redisClient.hgetall(hashkey, (err, hashVal) => {
-                   // log('hash:', hashVal)
+                  log('hash:', hashVal)
 
                     let data = {
                       message: {
