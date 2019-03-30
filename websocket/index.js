@@ -31,7 +31,7 @@ wss.on('connection', async (wsClient, req) => {
   
               redis.onKeyChange( (key, event) => {
                 let msg
-                redis.client.get(key, (err, value) => {
+                redis.get(key, (err, value) => {
                   if (err) {
                     msg = JSON.stringify({
                       type: 'error',

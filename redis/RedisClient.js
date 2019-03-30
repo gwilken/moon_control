@@ -30,6 +30,10 @@ class RedisClient {
     })
   }
 
+  get(key) {
+    return this.client.get(key)
+  }
+
   getHashsFromSet (set, start = -30, end = -1) {
     return new Promise( async (resolve, reject) => {
         let list = await this.zrange(set, start, end)
