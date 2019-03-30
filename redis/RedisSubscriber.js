@@ -47,6 +47,10 @@ class RedisSubscriber {
   onEventChange(cb) {
     this.eventChangeCb = cb
   }
+
+  quit() {
+    this.client.quit()
+  }
 }
 
 module.exports = RedisSubscriber;
