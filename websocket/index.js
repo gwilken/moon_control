@@ -14,6 +14,7 @@ const closeConnection = (client) => {
   client.close()
 }
 
+
 const parseMessage = (str, wsClient, redisClient) => {
   try {
     let json = JSON.parse(str) || {}
@@ -45,7 +46,9 @@ const parseMessage = (str, wsClient, redisClient) => {
                       timestamp: Date.now(),
                       type: 'keyChanged',
                     }
-                  }))
+                  }), (err) => {
+                    console.log('[ WEBSOCKET ] - Error sending:', err)
+                  })
                 }
               })
             }) 
@@ -79,7 +82,9 @@ const parseMessage = (str, wsClient, redisClient) => {
                       }
                     }
                     
-                    wsClient.send(JSON.stringify(data))
+                    wsClient.send( JSON.stringify(data), (err) => {
+                      console.log('[ WEBSOCKET ] - Error sending:', err)
+                    })
 
                   })
                 })
@@ -96,9 +101,12 @@ const parseMessage = (str, wsClient, redisClient) => {
             redisSubEvent.subscribeToEvent(json.message.event)
             
             redisSubEvent.onEventChange( (event, key) => {
-              wsClient.send(`${event}, ${key}`)
+              
+              wsClient.send(`${event}, ${key}`, (err) => {
+                console.log('[ WEBSOCKET ] - Error sending:', err)
+              })
+            
             })
-
           }
         }
     }
