@@ -1,7 +1,7 @@
 const WebSocket = require('ws');
 const config = require('../config')
-//const RedisSub = require('../redis/RedisSubscriber')
-const RedisClient = require('../redis/RedisClient')
+const RedisSub = require('../redis/RedisSubscriber')
+const redis = require('redis')
 const log = require('../utils/log')
 
 
@@ -16,7 +16,15 @@ wss.on('connection', async (wsClient, req) => {
 
   log('[ WEBSOCKET ] - Client attempting to connect:', wsOrigin)
 
-  let redis = new RedisClient()
+  let redisClient = redis.createClient(config.redis.port, config.redis.host)
+
+
+  const closeConnection = (err) => {
+    log('[ WEBSOCKET ] - Closing client.')
+    wsClient.send('Closing connection.')
+    cliwsClientent.close()
+  }
+
 
   const parseMessage = (str) => {
     try {
@@ -27,11 +35,16 @@ wss.on('connection', async (wsClient, req) => {
         switch (json.message.type) {
           case 'subscribeToKey':
             try {
-              redis.subscribeToKey(json.message.key);
+              let redisSubKey = new RedisSub()
   
-              redis.onKeyChange( (key, event) => {
+              redisSubKey.subscribeToKey(json.message.key);
+  
+              redisSubKey.onKeyChange( (key, event) => {
+
+                console.log('key change; key, event', key, event)
+
                 let msg
-                redis.get(key, (err, value) => {
+                redisClient.get(key, (err, value) => {
                   if (err) {
                     msg = JSON.stringify({
                       type: 'error',
@@ -66,7 +79,7 @@ wss.on('connection', async (wsClient, req) => {
             }
 
             catch (err) {
-              log('[ WEBSOCKET ] - Error subscribeToKey', err)
+              log('[ WEBSOCKET ] - Error subscribeToKey')
             }
           break;
           
@@ -74,15 +87,17 @@ wss.on('connection', async (wsClient, req) => {
            // log('subscribeToSeries')
           
               try {
-                redis.subscribeToKey(json.message.key);
+                let redisSubTimeseries = new RedisSub()
   
-                redis.onKeyChange( (key, event) => {
+                redisSubTimeseries.subscribeToKey(json.message.key);
+  
+                redisSubTimeseries.onKeyChange( (key, event) => {
                 
-                  redis.zrange(key, -1, -1, 'WITHSCORES', (err, val) => {
+                  redisClient.zrange(key, -1, -1, 'WITHSCORES', (err, val) => {
                     let [hashkey, keyAsTimestamp] = val
                     log('timestamp:', keyAsTimestamp, 'hashkey:', hashkey) 
                   
-                    redis.hgetall(hashkey, (err, hashVal) => {
+                    redisClient.hgetall(hashkey, (err, hashVal) => {
                     log('hash:', hashVal)
   
                       let data = {
@@ -111,9 +126,11 @@ wss.on('connection', async (wsClient, req) => {
             if(json.message.event) {
 
               try {
-                redis.subscribeToEvent(json.message.event)
+                let redisSubEvent = new RedisSub()
+    
+                redisSubEvent.subscribeToEvent(json.message.event)
                 
-                redis.onEventChange( (event, key) => {
+                redisSubEvent.onEventChange( (event, key) => {
                   wsClient.send(`${event}, ${key}`)
                 })
               }
@@ -131,13 +148,14 @@ wss.on('connection', async (wsClient, req) => {
 
 
   wsClient.on('message', (msg) => {
-    parseMessage(msg)
+    parseMessage(msg, wsClient, redisClient)
   })
   
-
+  
   wsClient.on('close', () => {
-    redis.quit()
     log('[ WEBSOCKET ] - Client connection closed.')
   })
+
+
 
 });
