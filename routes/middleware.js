@@ -1,6 +1,4 @@
-const redis = require('redis')
 const RedisClient = require('../redis/RedisClient.js')
-
 
 const getHashsFromSet = async (req, res, next) => {
   let {set, start, end} = req.body
